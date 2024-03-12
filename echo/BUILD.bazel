@@ -1,0 +1,7 @@
+cc_binary(
+    name = "echo",
+    srcs = ["echo.h","echo.cc","main.cc"],
+    deps = [
+        "//cherry/net",
+    ],
+)
