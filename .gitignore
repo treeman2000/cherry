@@ -3,3 +3,4 @@
 .vscode
 bazel-*
 tmp*
+todo.md

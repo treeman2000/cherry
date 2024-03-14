@@ -1,9 +1,16 @@
 #include<iostream>
-#include"utils/util.h"
+#include<string>
 using namespace std;
 
+class A{
+public:
+    int& get_b(){return b;}
+    int b = 0;
+};
+
 int main(){
-    A();
-    cout<<"okin simple server"<<endl;
-    return 0;
+    int& x = A().get_b();
+    x= 6;
+    cout<<x<<endl;
+    return 0;  
 }
