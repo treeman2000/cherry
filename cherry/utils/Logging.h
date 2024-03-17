@@ -51,8 +51,7 @@ int main()
 改进：如果太长了，写不下，可以多加一条log说明。
 Logger是一个非常轻量级的对象。在析构时，把logstream的数据调用outputFunc写入后端
 */
-#ifndef LOGGING_H
-#define LOGGING_H
+#pragma once
 
 #include<cstring>
 #include<string>
@@ -110,16 +109,9 @@ public:
     EmptyLogStream& operator<<(const char*){return *this;}
     EmptyLogStream& operator<<(std::string){return *this;}
 };
-EmptyLogStream emptyStream;
+extern EmptyLogStream emptyStream;
 
-const char* level2name[LogLevel::NUM] =
-{
-  "DEBUG ",
-  "INFO  ",
-  "WARN  ",
-  "ERROR ",
-  "FATAL ",
-};
+extern const char* level2name[LogLevel::NUM];
 
 // 每次调用LOG_INFO<<等函数时创建，调用完就析构，析构时把日志写入后端
 class Logger:noncopyable{
@@ -137,10 +129,8 @@ private:
     mytime::Time t_;
 };
 
-LogLevel gLogLevel = LogLevel::INFO;
-void setLogLevel(LogLevel logLevel){
-    gLogLevel = logLevel;
-}
+extern LogLevel gLogLevel;
+void setLogLevel(LogLevel logLevel);
 
 #define LOG_DEBUG Logger(__FILE__, __LINE__,cherry::LogLevel::DEBUG).stream()
 #define LOG_INFO Logger(__FILE__, __LINE__,cherry::LogLevel::INFO).stream()
@@ -150,5 +140,3 @@ void setLogLevel(LogLevel logLevel){
 
 
 } // cherry
-
-#endif // LOGGING_H

@@ -15,6 +15,7 @@ FILE* gFile = stdout;
 
 void DefaultBackend::append(const char* p, int len){
     fwrite(p, 1, len, gFile);
+    fflush(gFile);
 }
 
 void AsyncBackend::backendThreadFunc(){

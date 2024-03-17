@@ -9,6 +9,20 @@ namespace cherry{
 
 constexpr int MaxNumericSize = 48;
 
+const char* level2name[LogLevel::NUM] =
+{
+  "DEBUG ",
+  "INFO  ",
+  "WARN  ",
+  "ERROR ",
+  "FATAL ",
+};
+
+LogLevel gLogLevel = LogLevel::INFO;
+void setLogLevel(LogLevel logLevel){
+    gLogLevel = logLevel;
+}
+
 LogStreamImpl& LogStreamImpl::operator<<(int a){
     if(buffer_.avail()>MaxNumericSize){
         char tmp[MaxNumericSize];
@@ -73,6 +87,8 @@ LogStreamImpl& LogStreamImpl::operator<<(std::string s){
     }
     return *this;
 }
+
+EmptyLogStream emptyStream;
 
 LogStream& Logger::stream(){
     if(logLevel_ >= gLogLevel){

@@ -1,5 +1,4 @@
-#ifndef NONCOPYABLE_H
-#define NONCOPYABLE_H
+#pragma once
 
 namespace cherry{
 
@@ -14,5 +13,3 @@ protected:
 };
 
 }
-
-#endif  // NONCOPYABLE_H

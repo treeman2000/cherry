@@ -14,6 +14,7 @@ void testLogger(){
 
 void testAsyncBackend(){
     cherry::setBackend("async");
+    cherry::LOG_INFO << cherry::level2name[cherry::gLogLevel];
     constexpr int N = 100;
     for(int i=0;i<N;i++){
         cherry::LOG_INFO<<i<<"\tbvb\t"<<6.6<<"ddd\t"s;

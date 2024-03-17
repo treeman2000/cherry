@@ -28,4 +28,12 @@ std::string Time::toString(bool showMicroseconds) const{
     return buf;
 }
 
+bool operator<(const Time& t1, const Time& t2){
+    return t1.UnixMicro() < t2.UnixMicro();
+}
+
+bool operator==(const Time& t1, const Time& t2){
+    return t1.UnixMicro() == t2.UnixMicro();
+}
+
 }

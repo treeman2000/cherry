@@ -1,3 +1,5 @@
+#pragma once
+
 #include<string>
 namespace mytime{
 
@@ -16,14 +18,6 @@ public:
 private:
     long long timestampMicro_;
 };
-
-bool operator<(const Time& t1, const Time& t2){
-    return t1.UnixMicro() < t2.UnixMicro();
-}
-
-bool operator==(const Time& t1, const Time& t2){
-    return t1.UnixMicro() == t2.UnixMicro();
-}
 
 Time now();
 // timeval结构体里面一个秒，一个微秒，加起来就是当前时间
