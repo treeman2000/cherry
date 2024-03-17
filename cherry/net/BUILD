@@ -1,9 +1,24 @@
 cc_library(
-    name = "eventloop",
-    hdrs = ["eventloop.h"],
-    srcs = ["eventloop.cpp"],
-    deps = ["//cherry/utils:logging"],
+    name = "net",
+    srcs = [
+        "channel.cpp",
+        "eventloop.cpp",
+    ],
+    hdrs = [
+        "channel.h",
+        "eventloop.h",
+    ],
     visibility = ["//visibility:public"],
+    deps = ["//cherry/utils:logging"],
+)
+
+# initial version
+cc_library(
+    name = "eventloop",
+    srcs = ["eventloop.cpp"],
+    hdrs = ["eventloop.h"],
+    visibility = ["//visibility:public"],
+    deps = ["//cherry/utils:logging"],
 )
 
 cc_test(

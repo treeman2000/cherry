@@ -7,8 +7,8 @@
 namespace cherry{
 thread_local EventLoop* loopInThisThread = nullptr;
 
-EventLoop::EventLoop():
-    looping_(false), tid_(std::this_thread::get_id()){
+EventLoop::EventLoop()
+    :looping_(false), tid_(std::this_thread::get_id()){
     LOG_DEBUG << "creat loop in thread "<< std::hash<std::thread::id>()(tid_);
     // 检查这个线程是否已经创建了EventLoop
     if(loopInThisThread != nullptr){
