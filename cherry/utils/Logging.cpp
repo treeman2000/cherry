@@ -19,6 +19,16 @@ LogStreamImpl& LogStreamImpl::operator<<(int a){
     return *this;
 }
 
+LogStreamImpl& LogStreamImpl::operator<<(unsigned long a){
+    if(buffer_.avail()>MaxNumericSize){
+        char tmp[MaxNumericSize];
+        memset(tmp,0,sizeof tmp);
+        sprintf(tmp,"%lu",a);
+        buffer_.append(tmp,strlen(tmp));
+    }
+    return *this;
+}
+
 LogStreamImpl& LogStreamImpl::operator<<(long long a){
     if(buffer_.avail()>MaxNumericSize){
         char tmp[MaxNumericSize];
@@ -65,7 +75,7 @@ LogStreamImpl& LogStreamImpl::operator<<(std::string s){
 }
 
 LogStream& Logger::stream(){
-    if(gLogLevel >= logLevel_){
+    if(logLevel_ >= gLogLevel){
         return logStream_;
     }
     return emptyStream;
@@ -87,8 +97,10 @@ Logger::Logger(const char* curFileName, int lineNo, LogLevel logLevel):
 }
 
 Logger::~Logger(){
-    logStream_<<" "<<curFileName_<<": "<<lineNo_<<"\n";
-    gBackend->append(logStream_.buffer_.data(),logStream_.buffer_.length());
+    if(logLevel_ >= gLogLevel){
+        logStream_<<" "<<curFileName_<<": "<<lineNo_<<"\n";
+        gBackend->append(logStream_.buffer_.data(),logStream_.buffer_.length());
+    }
 }
 
 

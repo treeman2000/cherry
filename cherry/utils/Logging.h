@@ -78,6 +78,7 @@ enum LogLevel{
 class LogStream{
 public:
     virtual LogStream& operator<<(int) = 0;
+    virtual LogStream& operator<<(unsigned long) = 0;
     virtual LogStream& operator<<(long long) = 0;
     virtual LogStream& operator<<(float) = 0;
     virtual LogStream& operator<<(double) = 0;
@@ -89,6 +90,7 @@ class LogStreamImpl: public LogStream{
 public:
     LogStreamImpl(){};
     LogStreamImpl& operator<<(int);
+    LogStreamImpl& operator<<(unsigned long);
     LogStreamImpl& operator<<(long long);
     LogStreamImpl& operator<<(float);
     LogStreamImpl& operator<<(double);
@@ -102,6 +104,7 @@ public:
     EmptyLogStream(){};
     EmptyLogStream& operator<<(int){return *this;}
     EmptyLogStream& operator<<(long long){return *this;}
+    EmptyLogStream& operator<<(unsigned long){return *this;}
     EmptyLogStream& operator<<(float){return *this;}
     EmptyLogStream& operator<<(double){return *this;}
     EmptyLogStream& operator<<(const char*){return *this;}
