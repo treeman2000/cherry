@@ -26,6 +26,8 @@ public:
     int fd() const { return fd_; }
     int events() const { return events_; }
 
+    void set_revents(int revents) { revents_ = revents; } // poll完了调用它
+
     void handleEvent(mytime::Time receiveTime);
     void setReadCallback(ReadEventCallback cb) { readCallback_ = std::move(cb); }
     void setWriteCallback(EventCallback cb) { writeCallback_ = std::move(cb); }
@@ -41,6 +43,7 @@ public:
     bool isReading() const { return events_ & kReadEvent; }
 
 private:
+    // 记录下自己的所有者loop，以便通知loop 自己的update 和 让loop quit。
     EventLoop* loop_;
     const int fd_;
 
