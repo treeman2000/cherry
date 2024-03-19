@@ -3,11 +3,13 @@ cc_library(
     srcs = [
         "channel.cpp",
         "eventloop.cpp",
+        "eventloop_thread.cpp",
         "poller.cpp",
     ],
     hdrs = [
         "channel.h",
         "eventloop.h",
+        "eventloop_thread.h",
         "poller.h",
     ],
     visibility = ["//visibility:public"],
@@ -15,7 +17,13 @@ cc_library(
 )
 
 cc_test(
-    name = "net_test",
+    name = "elt_test",
+    srcs = ["eventloop_thread_test.cpp"],
+    deps = [":net"],
+)
+
+cc_test(
+    name = "el_test",
     srcs = ["eventloop_test.cpp"],
     deps = [":net"],
 )

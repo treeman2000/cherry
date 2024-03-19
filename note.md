@@ -50,3 +50,5 @@ muduo基于io多路复用，算是非阻塞的同步网络框架。非阻塞就�
 
 遇到的问题：
 epoller实现之后，在eventloop初始化时忘记初始化它了。gdb调试发现了问题。发现读到epoller的字段channels_时报段错误，发现epoller没初始化。
+
+unique_lock必须接收一个mutex作为参数，后续才能用lock()上锁。如果构造时不传mutex，也可以在后续lock的时候再传锁，只是和设想的用法不一样了。一开始还以为不传mutex会默认帮我创建一个mutex成员。
