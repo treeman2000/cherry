@@ -75,11 +75,24 @@ void testChannelPollerEventloop(){
     delete loop;
 }
 
+void testRunInLoop(){
+    LOG_DEBUG << "in testRunInLoop()";
+    EventLoop loop;
+    thread t([&loop](){
+        LOG_DEBUG<<"another thread. tid = "<<hash<std::thread::id>()(this_thread::get_id());
+        loop.runInLoop([]{
+            LOG_DEBUG<<"runInLoop(): tid = "<<hash<std::thread::id>()(this_thread::get_id());
+        });
+    });
+    t.join();
+}
+
 int main(){
     cout<<"start test"<<endl;
     cherry::setLogLevel(cherry::LogLevel::DEBUG);
     // testCreateEventLoop();
     // testCreateEventLoopFail();
-    testChannelPollerEventloop();
+    // testChannelPollerEventloop();
+    testRunInLoop();
     return 0;
 }

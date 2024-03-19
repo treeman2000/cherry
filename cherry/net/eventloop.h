@@ -3,6 +3,8 @@
 
 #include<thread>
 #include<vector>
+#include<mutex>
+#include<functional>
 #include"cherry/utils/noncopyable.h"
 
 namespace cherry{
@@ -13,11 +15,13 @@ constexpr int timeoutMs = 1000;
 
 class EventLoop: noncopyable{
 public:
+    typedef std::function<void()> Func;
+
     EventLoop();
     ~EventLoop();
 
     void loop();
-    // void runInLoop();
+    void runInLoop(Func callback);
     void quit();
 
     bool isInLoopThread();
@@ -36,6 +40,16 @@ private:
 
     std::unique_ptr<EPoller> poller_;
     ChannelList activeChannels_;
+
+    // for runInLoop
+    void doPendingFuncs();
+    std::mutex mutex_;
+    std::vector<Func> pendingFuncs_;
+    // 为了在调用runInLoop后能立即执行，而不要阻塞在poll上
+    int wakeupFd_;
+    std::unique_ptr<Channel> wakeupChannel_;
+    void wakeup();
+    bool isCallingPendingFuncs_;
 };
 
 }
