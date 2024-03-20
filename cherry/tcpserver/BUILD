@@ -14,3 +14,12 @@ cc_library(
         "//cherry/utils:logging",
     ],
 )
+
+cc_test(
+    name = "acceptor_test",
+    srcs = ["acceptor_test.cpp"],
+    deps = [
+        ":net",
+        "//cherry/utils:logging",
+    ],
+)
