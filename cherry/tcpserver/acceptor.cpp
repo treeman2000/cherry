@@ -65,9 +65,11 @@ void Acceptor::handleRead(mytime::Time t){
     int connfd = ::accept(socketFd_ , reinterpret_cast<sockaddr*>(&clientAddr), &len);
     if (connfd >= 0){
         if (newConnectionCallback_){
+            LOG_DEBUG<<"Acceptor::handleRead, new connection";
             auto [ipAddr, port] = convertSockaddrToIpPort(clientAddr);
             newConnectionCallback_(connfd, ipAddr, port);
         }else{
+            LOG_DEBUG<<"Acceptor::handleRead, no newConnectionCallback_";
             close(connfd);
         }
   }

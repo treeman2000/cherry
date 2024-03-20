@@ -48,7 +48,7 @@ void EPoller::fillActiveChannels(int numEvents ,ChannelList& activeChannels){
 void EPoller::updateChannel(Channel* channel){
     LOG_DEBUG << "fd = " << channel->fd() << " events = " << channel->events();
     LOG_DEBUG << "total channels: "<<channels_.size();
-    LOG_DEBUG << channels_.count(channel->fd());
+    LOG_DEBUG << "current fd count:"<<channels_.count(channel->fd());
     loop_->assertInLoopThread();
     // todo: 考虑删除channel
     if(channels_.count(channel->fd()) == 0){

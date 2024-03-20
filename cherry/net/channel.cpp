@@ -18,6 +18,7 @@ Channel::~Channel(){
 }
 
 void Channel::handleEvent(mytime::Time receiveTime){
+    LOG_DEBUG << "handleEvent, fd:" << fd_ << " revents:" << revents_;
     // POLLNVAL指明fd不是一个有效的socket的fd，POLLERR指明网络出问题了之类的。
     if(revents_ & (POLLNVAL | POLLERR) ){
         LOG_WARN << "handleEvent error";
